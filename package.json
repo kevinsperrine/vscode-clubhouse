@@ -1,76 +1,99 @@
 {
-	"name": "clubhouse-io",
-	"displayName": "clubhouse.io",
-	"publisher": "danielgriffiths",
-	"description": "Use Clubhouse in VSCode",
-	"icon": "src/assets/images/logo.png",
-	"scripts": {
-		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"build": "yarn compile && vsce package",
-		"deploy": "yarn build && vsce publish minor",
-		"postinstall": "touch node_modules/.metadata_never_index && node ./node_modules/vscode/bin/install"
-	},
-	"contributes": {
-		"commands": [
-			{
-				"command": "clubhouse.getStories",
-				"title": "Clubhouse: Get Stories"
-			},
-			{
-				"command": "clubhouse.setToken",
-				"title": "Clubhouse: Set Token"
-			},
-			{
-				"command": "clubhouse.setUsername",
-				"title": "Clubhouse: Set Username"
-			},
-			{
-				"command": "clubhouse.setDefaultBranchName",
-				"title": "Clubhouse: Set Default Branch"
-			},
-			{
-				"command": "clubhouse.search",
-				"title": "Clubhouse: Search Stories"
-			},
-			{
-				"command": "clubhouse.createPullRequest",
-				"title": "Clubhouse: Create Pull Request"
-			},
-			{
-				"command": "clubhouse.createCommit",
-				"title": "Clubhouse: Create Commit"
-			}
-		]
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Daniel-Griffiths/vscode-clubhouse.git"
-	},
-	"version": "0.5.0",
-	"engines": {
-		"vscode": "^1.35.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./out/extension.js",
-	"devDependencies": {
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.11.1",
-		"tslint": "^5.20.0",
-		"typescript": "^3.6.4",
-		"vscode": "^1.1.36"
-	},
-	"dependencies": {
-		"@types/lodash": "^4.14.144",
-		"@types/marked": "^0.6.5",
-		"axios": "^0.19.0",
-		"lodash": "^4.17.15",
-		"marked": "^0.7.0"
-	}
+  "version": "0.24.0",
+  "name": "shortcut-com",
+  "displayName": "shortcut.com",
+  "publisher": "danielgriffiths",
+  "description": "Use Shortcut in VSCode",
+  "icon": "src/assets/images/logo.png",
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "test": "jest --passWithNoTests",
+    "lint": "eslint \"**/*.ts*\" --fix",
+    "build": "tsc -p ./"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "shortcut.getStories",
+        "title": "Shortcut: Get Stories"
+      },
+      {
+        "command": "shortcut.createStory",
+        "title": "Shortcut: Create New Story"
+      },
+      {
+        "command": "shortcut.setBaseBranch",
+        "title": "Shortcut: Set Base Branch"
+      },
+      {
+        "command": "shortcut.search",
+        "title": "Shortcut: Search Stories"
+      },
+      {
+        "command": "shortcut.createPullRequest",
+        "title": "Shortcut: Create Pull Request"
+      },
+      {
+        "command": "shortcut.createCommit",
+        "title": "Shortcut: Create Commit"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "shortcut configuration",
+      "properties": {
+        "shortcut.token": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "The [token](https://app.shortcut.com/settings/account/api-tokens) used to communicate with the Shortcut api"
+        },
+        "shortcut.username": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Your username on Shortcut, this is used to determine which stories are assigned to you"
+        },
+        "shortcut.branchFormat": {
+          "type": "string",
+          "default": "[story_type]/[story_id]/[story_name]",
+          "description": "The default branch name format when creating new branches"
+        }
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Daniel-Griffiths/vscode-shortcut.git"
+  },
+  "engines": {
+    "vscode": "^1.35.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^17.0.40",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.30.0",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.4",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@types/vscode": "^1.67.0",
+    "@useshortcut/client": "^1.0.0",
+    "axios": "^0.27.2",
+    "eslint-config-airbnb": "^19.0.4",
+    "lodash": "^4.17.20"
+  }
 }

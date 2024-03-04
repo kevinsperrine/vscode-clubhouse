@@ -1,7 +1,7 @@
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 
-import { Commands } from "./utils/Commands";
-import { registerGlobalState } from "./utils/registerGlobalState";
+import { Commands } from './utils/Commands';
+import { registerGlobalState } from './utils/registerGlobalState';
 
 export function activate(context: vscode.ExtensionContext) {
   registerGlobalState(context);
@@ -11,28 +11,20 @@ export function activate(context: vscode.ExtensionContext) {
   /**
    * Commands
    */
-  vscode.commands.registerCommand("clubhouse.search", commands.search);
-  vscode.commands.registerCommand("clubhouse.setToken", commands.setToken);
-  vscode.commands.registerCommand("clubhouse.getStories", commands.getStories);
+  vscode.commands.registerCommand('shortcut.search', commands.search);
+  vscode.commands.registerCommand('shortcut.getStories', commands.getStories);
+  vscode.commands.registerCommand('shortcut.createStory', commands.createStory);
   vscode.commands.registerCommand(
-    "clubhouse.createPullRequest",
-    commands.createPullRequest
+    'shortcut.createPullRequest',
+    commands.createPullRequest,
   );
   vscode.commands.registerCommand(
-    "clubhouse.createCommit",
-    commands.createCommit
+    'shortcut.createCommit',
+    commands.createCommit,
   );
   vscode.commands.registerCommand(
-    "clubhouse.createStory",
-    commands.createStory
-  );
-  vscode.commands.registerCommand(
-    "clubhouse.setUsername",
-    commands.setUsername
-  );
-  vscode.commands.registerCommand(
-    "clubhouse.setDefaultBranchName",
-    commands.setDefaultBranchName
+    'shortcut.setBaseBranch',
+    commands.setBaseBranch,
   );
 }
 

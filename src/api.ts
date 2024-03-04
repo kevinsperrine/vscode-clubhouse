@@ -1,22 +1,19 @@
-import axios from "axios";
+import { ShortcutClient } from '@useshortcut/client';
 
-import { Storage } from "./utils/Storage";
+import { Setting } from './utils/Settings';
 
-export const api = axios.create({
-  baseURL: `https://api.clubhouse.io/api/v2/`,
-});
+let shortcutInstance: ShortcutClient<unknown>;
 
-api.interceptors.request.use(
-  function(response) {
-    const token = Storage.get("token");
+export const api = () => {
+  const token = Setting.get('token');
 
-    response.params = !response.params ? {} : response.params;
-
-    response.params["token"] = token;
-
-    return response;
-  },
-  function(err) {
-    return Promise.reject(err);
+  if (!token) {
+    throw new Error('Please set your shortcut token');
   }
-);
+
+  if (!shortcutInstance) {
+    shortcutInstance = new ShortcutClient(token);
+  }
+
+  return shortcutInstance;
+};

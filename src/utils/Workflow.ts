@@ -1,8 +1,11 @@
-import { api } from "../api";
-import { Storage } from "./Storage";
+import {
+  Workflow as IWorkflow,
+  WorkflowState as IWorkflowState,
+} from '@useshortcut/client';
 
-import { IWorkflow } from "../interfaces";
-import { QuickPickItem } from "vscode";
+import { api } from '../api';
+import { Storage } from './Storage';
+import { QuickPick } from '../interfaces';
 
 export class Workflow {
   /**
@@ -12,21 +15,21 @@ export class Workflow {
    * as they they will not be changed very often
    * They will be updated on every second request.
    *
-   * @returns {Promise<QuickPickItem[]>}
+   * @returns {Promise<QuickPick<IWorkflowState>>}
    * @static
    */
-  public static get = async (): Promise<QuickPickItem[]> => {
-    if (!Storage.get<IWorkflow[]>("workflows")) {
-      const { data } = await api.get(`workflows`);
-      Storage.set<IWorkflow[]>("workflows", data);
+  public static async getAll(): Promise<QuickPick<IWorkflowState>> {
+    if (!Storage.get<IWorkflow[]>('workflows')) {
+      const { data: workflows } = await api().listWorkflows();
+
+      Storage.set<IWorkflow[]>('workflows', workflows);
     }
 
     // @todo don't assume the first item has the correct workflows
-    return Storage.get<IWorkflow[]>("workflows")[0].states.map(workflow => {
-      return {
-        label: workflow.name,
-        description: workflow.description,
-      };
-    });
-  };
+    return Storage.get<IWorkflow[]>('workflows')[0].states.map((workflow) => ({
+      data: workflow,
+      label: workflow.name,
+      description: workflow.description,
+    }));
+  }
 }
